@@ -27,3 +27,12 @@ engine = create_async_engine(url=settings.database_url)
 
 # Multiple session creation.
 AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession)
+
+
+async def get_async_session():
+    """
+    This function opens a session and closes it after all operations using
+    this session have been completed, or if an error occurs.
+    """
+    async with AsyncSessionLocal() as async_session:
+        yield async_session
